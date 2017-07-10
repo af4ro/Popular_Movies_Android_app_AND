@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">30sp</dimen>
+    <dimen name="date_size">16sp</dimen>
+    <dimen name="overview_text_size">16sp</dimen>
+    <dimen name="standard_margin">8dp</dimen>
+    <dimen name="movie_margin_top">50dp</dimen>
+    <dimen name="text_padding">15dp</dimen>
+</resources>
