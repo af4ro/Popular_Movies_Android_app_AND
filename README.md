@@ -10,4 +10,5 @@ The application will throw an error if a stable internet connections isn't avail
 
 ## Made by 
 Anshul Singhal
+
 http://anshulsinghal.me/
