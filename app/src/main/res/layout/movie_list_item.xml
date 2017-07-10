@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/linear_layout">
+
+    <!--The image view that is duplicated and reused-->
+    <ImageView
+        android:contentDescription="@string/poster_image"
+        android:id="@+id/iv_movie_data"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:padding="1dp"
+        android:background="@color/colorPrimaryDark"/>
+
+</LinearLayout>

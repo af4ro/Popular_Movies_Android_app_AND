@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimaryDark">
+
+    <!--The Error Message TextView-->
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:text="@string/error_message"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"/>
+
+    <!--The progress bar-->
+    <ProgressBar
+        android:id="@+id/pb_loading_indicator"
+        android:layout_height="42dp"
+        android:layout_width="42dp"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+    <!--The RecyclerView that stores all the images-->
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.example.anshul.popularmovies.MainActivity"
+        android:id="@+id/recycler_view">
+
+    </android.support.v7.widget.RecyclerView>
+    </FrameLayout>

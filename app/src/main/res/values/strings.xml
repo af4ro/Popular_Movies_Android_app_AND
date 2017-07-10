@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="most_rated_movies">Most Rated Movies</string>
+    <string name="error_message">An Error has occurred. Please try again later or check your internet connection</string>
+    <string name="cover_image">The Cover Photo for the Movie</string>
+    <string name="poster_image">The Poster Image for the Movie</string>
+</resources>
