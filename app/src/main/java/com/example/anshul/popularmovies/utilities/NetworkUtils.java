@@ -17,9 +17,13 @@ public class NetworkUtils {
     private final static String BASE_IMAGE_URL = "http://image.tmdb.org/t/p";
 
     private final static String QUERY_MAIN_KEY_PARAM = "api_key";
+    private final static String QUERY_VIDEOS = "/videos";
+    private final static String QUERY_REVIEWS = "/reviews";
 
     private final static String QUERY_IMAGE_SIZE = "/w342";
     private final static String QUERY_IMAGE_SIZE2 = "/w780";
+
+    // Sample URL: http://api.themoviedb.org/3/movie/popular?api_key=5555
 
     //Builds the URL using class variables and parameters
     public static URL buildUrl(String sortingCategory, String api_key) {
@@ -49,6 +53,31 @@ public class NetworkUtils {
         }
         else{
             builtUri = Uri.parse(BASE_IMAGE_URL + QUERY_IMAGE_SIZE2 + imageExtension);
+        }
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v("BASE_URL", "Built URI " + url);
+
+        return url;
+    }
+
+    public static URL buildVideoReviewUrl(int movieId, boolean isVideoAndNotReview, String api_key) {
+
+        Uri builtUri;
+        if(isVideoAndNotReview){
+            builtUri = Uri.parse(BASE_MAIN_URL + "/movie/"+ movieId+ QUERY_VIDEOS).buildUpon()
+            .appendQueryParameter(QUERY_MAIN_KEY_PARAM, api_key)
+                .build();
+        }
+        else{
+            builtUri = Uri.parse(BASE_MAIN_URL + "/movie/"+ movieId+ QUERY_REVIEWS).buildUpon()
+            .appendQueryParameter(QUERY_MAIN_KEY_PARAM, api_key)
+                .build();
         }
         URL url = null;
         try {

@@ -1,11 +1,15 @@
 package com.example.anshul.popularmovies;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,18 +17,28 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.anshul.popularmovies.data.FavoritesContract;
+import com.example.anshul.popularmovies.data.FavoritesDbHelper;
 import com.example.anshul.popularmovies.utilities.JsonUtils;
 import com.example.anshul.popularmovies.utilities.NetworkUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MovieAdapterOnClickHandler{
 
+    // TODO add LifeCycle fixes
+    // TODO add Db for favourites
+
+    // Constants for logging and referring to a unique loader
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int TASK_LOADER_ID = 0;
+
     //Enter your API KEY here
-    public static String API_KEY = "";
+    public static String API_KEY = "91a5d474b1e7b77bdc20b86894016717";
 
     //The necessary class variable go here
     private RecyclerView mRecyclerView;
@@ -36,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     private TextView mErrorMessageDisplay;
 
     private ProgressBar mLoadingIndicator;
+
+    private static SQLiteDatabase mDb;
+
+    private static ArrayList<String> favoriteContains = new ArrayList<String>();
 
     //The method executed on creation of this activity
     @Override
@@ -49,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         //Getting the gridLayout for the layoutManager
         GridLayoutManager layoutManager
                 = new GridLayoutManager(getApplicationContext(),2);
+
+        //Setting up the Database for favorites
+        FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
+
+        mDb = dbHelper.getWritableDatabase();
 
         //Setting the adapter for the RecyclerView
         mRecyclerView.setLayoutManager(layoutManager);
@@ -106,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 return null;
             }
 
+            if (strings[0].equals("favorites") && strings[1] == null){
+
+            }
             //Strings[0]: to sort by
             //Strings[1]: the api key
             URL movieRequestedUrl = NetworkUtils.buildUrl(strings[0],strings[1]);
@@ -115,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                         .getResponseFromHttpUrl(movieRequestedUrl);
 
                 return JsonUtils
-                        .stringFromJson(jsonMoviesResponse);
+                        .stringFromJson(jsonMoviesResponse, API_KEY);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -164,6 +190,10 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
             return true;
         }
 
+        if(id == R.id.action_favorites) {
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -184,4 +214,27 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         }
         return true;
     }
+
+
+    // Make List of favorites
+//    private List<Map<String, String>> favoritesToList(){
+//
+//    }
+
+    // Database functions
+    public static boolean containsFavorites(String movieTitle){
+        return favoriteContains.contains(movieTitle);
+    }
+
+    public static boolean addToFavorites(String movieTitle){
+        if (containsFavorites(movieTitle))
+            return false;
+        Log.v("Favorites", favoriteContains.toString());
+        return favoriteContains.add(movieTitle);
+    }
+
+    public static boolean removeFromFavorites(String movieTitle){
+        return favoriteContains.remove(movieTitle);
+    }
 }
+

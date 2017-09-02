@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/film_reel"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+
+        <activity android:name="com.example.anshul.popularmovies.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MovieDetail"
-            android:parentActivityName=".MainActivity">
+
+        <activity android:name="com.example.anshul.popularmovies.MovieDetail"
+            android:parentActivityName="com.example.anshul.popularmovies.MainActivity">
         </activity>
+
+        <provider
+            android:authorities="com.example.anshul.popularmovies"
+            android:name="com.example.anshul.popularmovies.data.FavoriteContentProvider"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
